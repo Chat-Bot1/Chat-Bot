@@ -1,0 +1,61 @@
+.input-container {
+    display: flex;
+    gap: 10px;
+}
+
+    .input-container input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .input-container button {
+        padding: 0 20px;
+        border-radius: 20px;
+        border: none;
+        background-color: #5B2B81;
+        color: white;
+        cursor: pointer;
+    }
+
+/* CONTENEDOR PRINCIPAL */
+.chat-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch;
+    padding: 16px;
+    background-color: white !important;
+    height: 100%;
+    border: 1px solid #ddd; /* 👈 ESTE ES EL BORDE */
+    border-radius: 16px; /* 👈 opcional, recomendado */
+    overflow-y: auto; /* 👈 MUY IMPORTANTE */
+    margin-bottom: 10px;
+}
+
+/* MENSAJE BASE */
+.message {
+    display: inline-block;
+    max-width: 70%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+    /* 🤖 BOT (IZQUIERDA) */
+    .message.bot {
+        align-self: flex-start !important;
+        background-color: #f2f2f2;
+        color: #000;
+        border-top-left-radius: 4px;
+    }
+
+    /* 👤 USUARIO (DERECHA) */
+    .message.user {
+        align-self: flex-end !important;
+        background-color: #5B2B81;
+        color: #ffffff;
+        border-top-right-radius: 4px;
+    }

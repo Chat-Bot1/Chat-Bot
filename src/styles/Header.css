@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    border-bottom: none;
+    background-color: #fff;
+}
+
+.logo {
+    height: 40px;
+}
+
+.session-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .session-info button {
+        background-color: #5B2B81;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+        .session-info button:hover {
+            background-color: #5B2B81;
+        }

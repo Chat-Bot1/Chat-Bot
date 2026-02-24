@@ -1,35 +1,22 @@
-import "./ChatInput.css";
+import "../styles/Chat.css";
 
 interface ChatInputProps {
     value: string;
-    onChange: (value: string) => void;
+    onChange: (v: string) => void;
     onSend: () => void;
-    disabled: boolean;
 }
 
-function ChatInput({ value, onChange, onSend, disabled }: ChatInputProps) {
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter" && !disabled) {
-            e.preventDefault();
-            onSend();
-        }
-    };
-
+export default function ChatInput({ value, onChange, onSend }: ChatInputProps) {
     return (
-        <div className="chat-input">
+        <div className="input-container">
             <input
                 type="text"
+                placeholder="Escribe tu pregunta..."
                 value={value}
-                disabled={disabled}
-                placeholder={disabled ? "El bot está respondiendo..." : "Escribe tu mensaje..."}
                 onChange={(e) => onChange(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onKeyDown={(e) => e.key === "Enter" && onSend()}
             />
-            <button onClick={onSend} disabled={disabled}>
-                Enviar
-            </button>
+            <button onClick={onSend}>Enviar</button>
         </div>
     );
 }
-
-export default ChatInput;

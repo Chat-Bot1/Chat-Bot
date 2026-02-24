@@ -1,4 +1,4 @@
-import "./ChatWindow.css";
+import "../styles/Chat.css";
 
 interface Message {
     from: "user" | "bot";
@@ -9,13 +9,13 @@ interface ChatWindowProps {
     messages: Message[];
 }
 
-function ChatWindow({ messages }: ChatWindowProps) {
+export default function ChatWindow({ messages }: ChatWindowProps) {
     return (
-        <div className="chat-window">
-            {messages.map((msg, index) => (
+        <div className="chat-container">
+            {messages.map((msg, i) => (
                 <div
-                    key={index}
-                    className={`chat-message ${msg.from}`}
+                    key={i}
+                    className={`message ${msg.from}`}
                 >
                     {msg.text}
                 </div>
@@ -23,5 +23,3 @@ function ChatWindow({ messages }: ChatWindowProps) {
         </div>
     );
 }
-
-export default ChatWindow;

@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+
 import ChatWindow from "./components/ChatWindow";
 import ChatInput from "./components/ChatInput";
+import Header from "./components/Header";
+import Login from "./pages/Login";
+
 import "./App.css";
 
 /* 🔧 CONFIGURACIÓN */
@@ -27,6 +32,20 @@ const getSessionId = () => {
 };
 
 function App() {
+    /* 🔐 ENTRA ID */
+    const isAuthenticated = useIsAuthenticated();
+    const { instance, accounts } = useMsal();
+
+    /* 👤 USUARIO AUTENTICADO */
+    const username = accounts.length > 0
+        ? accounts[0].username
+        : "Usuario";
+
+    const handleLogout = () => {
+        instance.logoutPopup().catch(console.error);
+    };
+
+    /* 💬 ESTADO DEL CHAT */
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -42,7 +61,7 @@ function App() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    session_id: getSessionId(),
+                    session_id: getSessionId(), // luego usaremos el token
                     request_id: Date.now().toString(),
                     text: text,
                 }),
@@ -54,12 +73,12 @@ function App() {
 
             const data = await response.json();
 
-            // 🟡 MODO MOCK (API de prueba)
+            // 🟡 MODO MOCK
             if (USE_MOCK_API) {
                 return `Echo mock: ${text}`;
             }
 
-            // 🟢 MODO REAL (tu API)
+            // 🟢 MODO REAL
             if (data.status !== "Succes") {
                 throw new Error("Error de negocio");
             }
@@ -73,7 +92,7 @@ function App() {
         }
     };
 
-    /* 📩 CUANDO SE ENVÍA UN MENSAJE */
+    /* 📩 ENVÍO DE MENSAJES */
     const handleSend = async () => {
         if (!input.trim() || loading) return;
 
@@ -98,9 +117,20 @@ function App() {
         });
     };
 
+    /* 🔀 RUTEO SIMPLE POR AUTENTICACIÓN */
+    if (!isAuthenticated) {
+        return <Login />;
+    }
+
     return (
         <div className="app">
-            <h1>Chatbot Savios</h1>
+            {/* 🧠 HEADER */}
+            <Header
+                username={username}
+                onLogout={handleLogout}
+            />
+
+            {/* 💬 CHAT */}
             <ChatWindow messages={messages} />
             <ChatInput
                 value={input}

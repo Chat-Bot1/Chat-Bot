@@ -1,9 +1,0 @@
-.chat-input {
-    display: flex;
-    gap: 0.5rem;
-}
-
-    .chat-input input {
-        flex: 1;
-        padding: 0.5rem;
-    }

@@ -1,8 +1,9 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
 .logo {
@@ -45,4 +46,8 @@
     padding: 2rem;
     max-width: 600px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    background-color: white;
 }
