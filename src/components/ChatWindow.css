@@ -1,0 +1,32 @@
+.chat-window {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Base de cualquier mensaje */
+.chat-message {
+    max-width: 70%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    word-wrap: break-word;
+}
+
+    /* Mensajes del bot (izquierda) */
+    .chat-message.bot {
+        align-self: flex-start;
+        background-color: #f1f1f1;
+        color: #000;
+    }
+
+    /* Mensajes del usuario (derecha) */
+    .chat-message.user {
+        align-self: flex-end;
+        background-color: #d1e7ff;
+        color: #000;
+    }
