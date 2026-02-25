@@ -14,11 +14,14 @@ import "./App.css";
 
 /* 🔧 CONFIGURACIÓN */
 //const USE_MOCK_API = false;
-const API_URL = import.meta.env.VITE_CHAT_API_URL;
+const RAW_API_URL = import.meta.env.VITE_CHAT_API_URL;
 
-if (!API_URL) {
+if (!RAW_API_URL) {
     throw new Error("VITE_CHAT_API_URL no está definida");
 }
+
+// 🔹 elimina SOLO el slash final si existe
+const API_URL = RAW_API_URL.replace(/\/$/, "");
 
 /* 🧠 TIPOS */
 interface Message {
