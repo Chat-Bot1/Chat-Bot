@@ -7,6 +7,11 @@
     background-color: #fff;
 }
 
+.session-name {
+    color: #808080;
+    font-size: 10px;
+}
+
 .logo {
     height: 40px;
 }

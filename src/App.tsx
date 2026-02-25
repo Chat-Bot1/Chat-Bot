@@ -15,8 +15,11 @@ import Login from "./pages/Login";
 import "./App.css";
 
 /* 🔧 CONFIGURACIÓN */
-const USE_MOCK_API = true;
-const API_URL = "https://jsonplaceholder.typicode.com/posts";
+const USE_MOCK_API = false;
+const API_URL = import.meta.env.VITE_CHAT_API_URL;
+if (!API_URL) {
+    throw new Error("VITE_CHAT_API_URL no está definida");
+}
 
 /* 🧠 TIPOS */
 interface Message {
@@ -29,10 +32,16 @@ function App() {
     const isAuthenticated = useIsAuthenticated();
     const { instance, accounts } = useMsal();
 
-    /* 👤 USUARIO */
-    const username =
-        getUsername() ||
-        (accounts.length > 0 ? accounts[0].username : "Usuario");
+    /* 👤 EMAIL DEL USUARIO */
+    const email =
+        accounts.length > 0
+            ? accounts[0].username
+            : "";
+
+    /* 👤 USER ID (antes del @) */
+    const userId = email.includes("@")
+        ? email.split("@")[0]
+        : email || "Usuario";
 
     /* 🔑 OBTENER TOKEN UNA SOLA VEZ */
     useEffect(() => {
@@ -65,7 +74,7 @@ function App() {
                     ...(token && { Authorization: `Bearer ${token}` }),
                 },
                 body: JSON.stringify({
-                    session_id: token ?? "mock-session",
+                    session_id: userId, // 👈 MISMO valor que se muestra
                     request_id: Date.now().toString(),
                     text,
                 }),
@@ -129,7 +138,10 @@ function App() {
     return (
         <div className="app">
             {/* 🧠 HEADER */}
-            <Header username={username} onLogout={handleLogout} />
+            <Header
+                username={userId}   // 👈 solo lo que va antes del @
+                onLogout={handleLogout}
+            />
 
             {/* 💬 CHAT */}
             <ChatWindow messages={messages} />
