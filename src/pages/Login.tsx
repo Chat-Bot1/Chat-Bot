@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../config/authConfig";
 import { saveSession } from "../config/session";
@@ -5,6 +6,12 @@ import "../styles/Login.css";
 import saviaLogo from "../assets/images/savia-logo.png";
 
 export default function Login() {
+
+    useEffect(() => {
+        document.body.classList.add("login-page");
+        return () => document.body.classList.remove("login-page");
+    }, []);
+
     const { instance } = useMsal();
 
     const handleLogin = async () => {
@@ -27,7 +34,7 @@ export default function Login() {
     return (
         <div className="login-container">
             <img src={saviaLogo} alt="Savia Logo" className="logo" />
-            <p>Inicia sesión con tu cuenta corporativa</p>
+            <p>Gestiona tus consultas usando nuestra IA</p>
             <button onClick={handleLogin}>
                 Iniciar sesión
             </button>

@@ -1,5 +1,7 @@
-import type { AccountInfo } from "@azure/msal-browser";
-import { PublicClientApplication } from "@azure/msal-browser";
+import type {
+    AccountInfo,
+    IPublicClientApplication
+} from "@azure/msal-browser";
 import { loginRequest } from "./authConfig";
 
 /* 🔐 KEYS */
@@ -27,7 +29,7 @@ export const getUsername = (): string | null => {
 
 /* 🆕 ENTRA ID – OBTENER TOKEN */
 export const acquireAccessToken = async (
-    instance: PublicClientApplication,
+    instance: IPublicClientApplication,
     account: AccountInfo
 ): Promise<string | null> => {
     try {
