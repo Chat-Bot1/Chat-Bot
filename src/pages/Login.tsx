@@ -9,7 +9,7 @@ import {
     saveSession,
 } from "../config/session";
 import "../styles/Login.css";
-import saviaLogo from "../assets/images/savia-logo.png";
+import saviaLogo from "../assets/images/savia-logo_.png";
 
 type ValidationErrorType = "denied" | "transient" | null;
 
@@ -73,8 +73,6 @@ export default function Login() {
     const handleRetryValidation = async () => {
         setErrorType(null);
         setErrorMsg("");
-        // Reintentar flujo completo de login (o podrías reintentar solo validateIdTokenExternal
-        // si guardaste id_token; aquí relanzamos login para mantener simplicidad)
         await handleLogin();
     };
 
@@ -88,42 +86,42 @@ export default function Login() {
     };
 
     return (
-        <div className="login-container">
-            <img src={saviaLogo} alt="Savia Logo" className="logo" />
-            <p>Gestiona tus consultas usando nuestra IA</p>
+        <div className="login-fullscreen">
+            <div className="login-container">
+                <div className="login-card" role="region" aria-label="Inicio de sesión">
+                    <img src={saviaLogo} alt="Savia Logo" className="logo" />
+                    <p>Gestiona tus consultas usando nuestra IA</p>
 
-            {errorType ? (
-                <div
-                    style={{
-                        background: errorType === "denied" ? "#fdecea" : "#fff4e5",
-                        color: errorType === "denied" ? "#b3261e" : "#8a6d3b",
-                        border: "1px solid",
-                        borderColor: errorType === "denied" ? "#f5c2c7" : "#ffe0a3",
-                        padding: "12px",
-                        borderRadius: 6,
-                        marginTop: 12,
-                        maxWidth: 520,
-                        textAlign: "center",
-                    }}
-                >
-                    <strong>
-                        {errorType === "denied" ? "Validación rechazada" : "No se pudo validar"}
-                    </strong>
-                    <div style={{ marginTop: 6 }}>{errorMsg}</div>
-                    <div style={{ marginTop: 12 }}>
-                        {errorType === "transient" && (
-                            <button onClick={handleRetryValidation} style={{ marginRight: 8 }}>
-                                Reintentar
-                            </button>
-                        )}
-                        <button onClick={handleLogout}>
-                            Cerrar sesión
+                    {errorType ? (
+                        <div
+                            className={`login-alert ${errorType === "denied" ? "login-alert--error" : "login-alert--warn"
+                                }`}
+                            role="alert"
+                            aria-live="polite"
+                        >
+                            <strong>
+                                {errorType === "denied" ? "Validación rechazada" : "No se pudo validar"}
+                            </strong>
+                            <div style={{ marginTop: 6 }}>{errorMsg}</div>
+
+                            <div className="login-alert__actions">
+                                {errorType === "transient" && (
+                                    <button className="btn-retry" onClick={handleRetryValidation}>
+                                        Reintentar
+                                    </button>
+                                )}
+                                <button className="btn-logout" onClick={handleLogout}>
+                                    Cerrar sesión
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <button className="btn-login" onClick={handleLogin}>
+                            Iniciar sesión
                         </button>
-                    </div>
+                    )}
                 </div>
-            ) : (
-                <button onClick={handleLogin}>Iniciar sesión</button>
-            )}
+            </div>
         </div>
     );
 }

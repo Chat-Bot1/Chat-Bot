@@ -1,14 +1,20 @@
 import "../styles/Header.css";
-import saviaLogo from "../assets/images/savia-logo.png";
+import saviaLogo from "../assets/images/savia-logo_.png";
 import { getName, getUniqueName } from "../config/session";
 
 interface HeaderProps {
     username: string;
     displayName?: string;
     onLogout: () => void;
+    onToggleMenu?: () => void; // ← para responsive
 }
 
-export default function Header({ username, displayName, onLogout }: HeaderProps) {
+export default function Header({
+    username,
+    displayName,
+    onLogout,
+    onToggleMenu,
+}: HeaderProps) {
     const storedName = getName();
     const storedUnique = getUniqueName();
 
@@ -16,16 +22,24 @@ export default function Header({ username, displayName, onLogout }: HeaderProps)
 
     return (
         <header className="header">
-            <img src={saviaLogo} alt="Savia Logo" className="logo" />
+            <div className="header__left">
+                {/* botón hamburguesa solo en mobile */}
+                <button
+                    className="menu-toggle"
+                    aria-label="Abrir menú"
+                    onClick={onToggleMenu}
+                >
+                    ☰
+                </button>
 
-            <div className="session-info">
-                <span className="session-name">
+                <img src={saviaLogo} alt="SAV-IA" className="logo" />
+            </div>
+
+            <div className="header__right">
+                <span className="welcome">
                     Hola: <strong>{nameToShow}</strong>
-                    {storedUnique && (
-                        <span style={{ fontSize: "12px", opacity: 0.7 }}> ({storedUnique})</span>
-                    )}
                 </span>
-                <button onClick={onLogout}>Cerrar sesión</button>
+                <button className="btn btn--logout" onClick={onLogout}>Cerrar Sesion</button>
             </div>
         </header>
     );

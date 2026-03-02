@@ -13,10 +13,10 @@ import {
 import ChatWindow from "./components/ChatWindow";
 import ChatInput from "./components/ChatInput";
 import Header from "./components/Header";
+import SideNav from "./components/SideNav";
 import Login from "./pages/Login";
 
 import "./App.css";
-import "./styles/Login.css";
 
 /* 🔧 CONFIGURACIÓN */
 const RAW_API_URL = import.meta.env.VITE_CHAT_API_URL;
@@ -30,8 +30,8 @@ interface Message {
     from: "user" | "bot";
     text: string;
 }
-
 type GuardErrorType = "denied" | "transient" | null;
+type ViewKey = "chat" | "config";
 
 function App() {
     /* 🔐 ENTRA ID */
@@ -48,6 +48,12 @@ function App() {
     const [validated, setValidated] = useState<boolean>(isTokenValidated());
     const [validating, setValidating] = useState<boolean>(!isTokenValidated());
     const [guardError, setGuardError] = useState<GuardErrorType>(null);
+
+    /* 🗺️ Vista activa (solo mostramos chat cuando sea "chat") */
+    const [activeView, setActiveView] = useState<ViewKey>("chat");
+
+    /* 📱 Estado del menú (responsive) */
+    const [isSideOpen, setSideOpen] = useState<boolean>(false);
 
     const runValidation = async () => {
         if (!isAuthenticated) return;
@@ -77,12 +83,10 @@ function App() {
             setValidating(false);
             if (accounts.length > 0) acquireAccessToken(instance, accounts[0]).catch(console.error);
         } else if (val.denied) {
-            // Rechazo explícito
             setValidating(false);
             setValidated(false);
             setGuardError("denied");
         } else {
-            // Fallo transitorio tras agotar reintentos
             setValidating(false);
             setValidated(false);
             setGuardError("transient");
@@ -163,32 +167,37 @@ function App() {
 
     if (validating) {
         return (
-            <div className="login-container" style={{ padding: 24 }}>
-                <h3>Validando sesión…</h3>
-                <p>Por favor espera un momento.</p>
+            <div className="app app--center">
+                <div className="guard-card">
+                    <h3>Validando sesión…</h3>
+                    <p>Por favor espera un momento.</p>
+                </div>
             </div>
         );
     }
 
     if (!validated) {
-        // Mensajes diferenciados por causa
         if (guardError === "denied") {
             return (
-                <div className="login-container" style={{ padding: 24 }}>
-                    <h3>Validación rechazada</h3>
-                    <p>El validador externo no aprobó tu sesión. Por favor, cierra sesión e inténtalo nuevamente.</p>
-                    <button onClick={handleLogout}>Cerrar sesión</button>
+                <div className="app app--center">
+                    <div className="guard-card guard-card--error">
+                        <h3>Validación rechazada</h3>
+                        <p>El validador externo no aprobó tu sesión. Por favor, cierra sesión e inténtalo nuevamente.</p>
+                        <button className="btn btn--secondary" onClick={handleLogout}>Cerrar sesión</button>
+                    </div>
                 </div>
             );
         }
-
-        // transitorio (o desconocido)
         return (
-            <div className="login-container" style={{ padding: 24 }}>
-                <h3>No fue posible validar la sesión</h3>
-                <p>Puede ser un problema temporal de red o del validador. Puedes reintentar o cerrar sesión.</p>
-                <button onClick={runValidation}>Reintentar</button>
-                <button onClick={handleLogout} style={{ marginLeft: 12 }}>Cerrar sesión</button>
+            <div className="app app--center">
+                <div className="guard-card guard-card--warn">
+                    <h3>No fue posible validar la sesión</h3>
+                    <p>Puede ser un problema temporal de red o del validador. Puedes reintentar o cerrar sesión.</p>
+                    <div className="guard-actions">
+                        <button className="btn btn--primary" onClick={runValidation}>Reintentar</button>
+                        <button className="btn btn--secondary" onClick={handleLogout}>Cerrar sesión</button>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -202,15 +211,41 @@ function App() {
                 username={userId}
                 displayName={displayName}
                 onLogout={handleLogout}
+                onToggleMenu={() => setSideOpen((v) => !v)}  // botón hamburger (mobile)
             />
 
-            <ChatWindow messages={messages} />
-            <ChatInput
-                value={input}
-                onChange={setInput}
-                onSend={handleSend}
-                disabled={loading}
-            />
+            <div className="app-shell">
+                <SideNav
+                    activeKey={activeView}
+                    isOpen={isSideOpen}
+                    onSelect={(key) => { setActiveView(key); setSideOpen(false); }}
+                    onClose={() => setSideOpen(false)}
+                />
+
+                <main className="content">
+                    {activeView === "chat" ? (
+                        <section className="chat-section">
+                            <div className="chat-card">
+                                <ChatWindow messages={messages} />
+                            </div>
+
+                            <div className="chat-input-row">
+                                <ChatInput
+                                    value={input}
+                                    onChange={setInput}
+                                    onSend={handleSend}
+                                    disabled={loading}
+                                />
+                            </div>
+                        </section>
+                    ) : (
+                        <section className="placeholder">
+                            <h3>Configuración</h3>
+                            <p>Este módulo estará disponible próximamente.</p>
+                        </section>
+                    )}
+                </main>
+            </div>
         </div>
     );
 }
