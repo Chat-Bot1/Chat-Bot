@@ -1,0 +1,18 @@
+{   
+    "tagline": "Gestiona tus consultas usando nuestra IA",
+    "signIn": "Iniciar sesión",
+  
+    "alertDeniedTitle": "Validación rechazada",
+    "alertDeniedMsg": "No fue posible validar tu sesión. El token ha sido rechazado por el validador.",
+    "alertTransientTitle": "No se pudo validar",
+    "alertTransientMsg": "No fue posible validar tu sesión en este momento. Revisa tu conexión e inténtalo nuevamente.",
+    "alertUnexpected": "Ocurrió un error inesperado durante el inicio de sesión.",
+  
+    "retry": "Reintentar",
+    "logout": "Cerrar sesión",  
+
+    "languageLabel": "Idioma",
+    "languagePlaceholder": "Selecciona un idioma",
+    "spanish": "Español",
+    "english": "Inglés"
+}

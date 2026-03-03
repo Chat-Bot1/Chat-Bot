@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="chatbot_savios.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>

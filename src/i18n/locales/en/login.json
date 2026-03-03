@@ -1,0 +1,18 @@
+{
+    "tagline": "Manage your questions using our AI",
+    "signIn": "Sign in",
+  
+    "alertDeniedTitle": "Validation denied",
+    "alertDeniedMsg": "We couldn't validate your session. The token was rejected by the validator.",
+    "alertTransientTitle": "Couldn't validate",
+    "alertTransientMsg": "We couldn't validate your session right now. Check your connection and try again.",
+    "alertUnexpected": "An unexpected error occurred during sign-in.",
+  
+    "retry": "Retry",
+    "logout": "Sign out",
+  
+    "languageLabel": "Language",
+    "languagePlaceholder": "Select a language",
+    "spanish": "Spanish",
+    "english": "English"
+}

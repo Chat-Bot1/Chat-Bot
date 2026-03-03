@@ -1,0 +1,147 @@
+/* ================================
+   LOGIN A FULL SCREEN, CENTRADO
+   ================================ */
+
+/* Capa de página: forzamos fullscreen y centrado absoluto */
+.login-fullscreen {
+    position: fixed; /* 🔑 ocupa toda la ventana, independiente del layout */
+    inset: 0; /* top/right/bottom/left = 0 */
+    display: grid; /* 🔑 centrado preciso */
+    place-items: center; /* 🔑 centrado vertical y horizontal */
+    padding: 24px;
+    box-sizing: border-box;
+    background: var(--clr-bg, #ffffff); /* usa tu bg global si existe */
+    z-index: 9999; /* por encima de cualquier grid o shell */
+}
+
+/* Contenedor semántico (por si quieres agregar más capas) */
+.login-container {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+/* Tarjeta de login */
+.login-card {
+    position: relative; /* posiciona el selector dentro */
+    width: min(520px, 92vw);
+    background: #5B2B81;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 28px 24px;
+    box-shadow: 0 30px 80px #5B2B81;
+    text-align: center;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+    .login-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 34px rgba(0,0,0,.14);
+    }
+
+/* Botón estilo ámbar (consistente con la app) */
+.btn-login {
+    border: none;
+    background: #F49A20;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 10px 18px;
+    cursor: pointer;
+}
+
+    .btn-login:hover {
+        background: #818282;
+    }
+
+/* Logo y copy */
+.login-card .logo {
+    height: 100px;
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+.login-card p {
+    margin: 8px 0 16px;
+    color: #CCCACA;
+}
+
+/* Alertas (error / transitorio) */
+.login-alert {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid;
+}
+
+.login-alert--error {
+    background: #fdecea;
+    color: #b3261e;
+    border-color: #f5c2c7;
+}
+
+.login-alert--warn {
+    background: #fff4e5;
+    color: #8a6d3b;
+    border-color: #ffe0a3;
+}
+
+.login-alert__actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+    .login-alert__actions button {
+        border: none;
+        border-radius: 20px;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .login-alert__actions .btn-retry {
+        background: #5b2b7a;
+        color: #fff;
+    }
+
+    .login-alert__actions .btn-logout {
+        background: #ddd;
+        color: #222;
+    }
+
+/* Accesibilidad: respeta reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+    .login-card,
+    .login-card:hover {
+        transition: none;
+        transform: none;
+        box-shadow: 0 10px 28px rgba(0,0,0,.12);
+    }
+}
+
+/* Selector de idioma (abajo derecha) */
+.lang-switch {
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .lang-switch__label {
+    color: #CCCACA;
+    font-size: 12px;
+  }
+  
+  .lang-switch__select {
+    border-radius: 10px;
+    border: 1px solid #cfcfcf;
+    padding: 6px 10px;
+    background: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+  }

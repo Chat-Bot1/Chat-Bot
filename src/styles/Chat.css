@@ -1,0 +1,79 @@
+/* INPUT */
+.input-container {
+    display: flex;
+    gap: 10px;
+    width: 50%
+}
+
+    .input-container input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .input-container button {
+        padding: 0 20px;
+        border-radius: 20px;
+        border: none;
+        background-color: #F49A20;
+        color: white;
+        cursor: pointer;
+    }
+
+/* ============================
+   CONTENEDOR PRINCIPAL DEL CHAT
+   ============================ */
+.chat-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch;
+    /* 🔑 Que ocupe todo el ancho disponible */
+    width: 100%;
+    flex: 1 1 auto; /* 🔑 Permite crecer dentro de su padre flex */
+    box-sizing: border-box; /* 🔑 Incluye padding/borde en el cálculo del ancho */
+
+    padding: 16px;
+    background-color: #fff !important;
+    height: 100%;
+    border: 1px solid #ddd; /* borde visual */
+    border-radius: 16px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+/* (opcional) da un alto mínimo grande para que se vea “imponente” en pantallas altas */
+@media (min-height: 700px) {
+    .chat-container {
+        min-height: 60vh; /* ajusta a tu gusto (60–70vh suele verse bien) */
+    }
+}
+
+/* ============================
+   MENSAJES
+   ============================ */
+.message {
+    display: inline-block;
+    max-width: 70%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+    /* 🤖 BOT (IZQUIERDA) */
+    .message.bot {
+        align-self: flex-start !important;
+        background-color: #f2f2f2;
+        color: #000;
+        border-top-left-radius: 4px;
+    }
+
+    /* 👤 USUARIO (DERECHA) */
+    .message.user {
+        align-self: flex-end !important;
+        background-color: #5B2B81;
+        color: #ffffff;
+        border-top-right-radius: 4px;
+    }

@@ -1,0 +1,25 @@
+{
+    "typing": " typing...",
+    "connectError": " Error connecting to the bot",
+  
+    "validatingTitle": "Validating session…",
+    "validatingMsg": "Please wait a moment.",
+  
+    "guardDeniedTitle": "Validation denied",
+    "guardDeniedMsg": "The external validator didn't approve your session. Please sign out and try again.",
+  
+    "guardTransientTitle": "Couldn't validate session",
+    "guardTransientMsg": "It may be a temporary network/validator issue. You can retry or sign out.",
+  
+    "retry": "Retry",
+    "logout": "Sign out",
+  
+    "sidenavChat": "Chat",
+    "sidenavConfig": "Settings",
+  
+    "configTitle": "Settings",
+    "configMsg": "This module will be available soon.",
+  
+    "inputPlaceholder": "Type your message...",
+    "send": "Send"
+  }

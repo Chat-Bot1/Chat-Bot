@@ -1,0 +1,25 @@
+{
+  "typing": " escribiendo...",
+  "connectError": " Error al conectar con el bot",
+
+  "validatingTitle": "Validando sesión…",
+  "validatingMsg": "Por favor espera un momento.",
+
+  "guardDeniedTitle": "Validación rechazada",
+  "guardDeniedMsg": "El validador externo no aprobó tu sesión. Por favor, cierra sesión e inténtalo nuevamente.",
+
+  "guardTransientTitle": "No fue posible validar la sesión",
+  "guardTransientMsg": "Puede ser un problema temporal de red o del validador. Puedes reintentar o cerrar sesión.",
+
+  "retry": "Reintentar",
+  "logout": "Cerrar sesión",
+
+  "sidenavChat": "Chat",
+  "sidenavConfig": "Configuración",
+
+  "configTitle": "Configuración",
+  "configMsg": "Este módulo estará disponible próximamente.",
+
+  "inputPlaceholder": "Escribe tu mensaje...",
+  "send": "Enviar"
+  }

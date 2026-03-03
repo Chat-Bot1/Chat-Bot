@@ -1,0 +1,206 @@
+/* =========================
+   Reseteo inicial (tuyo)
+   ========================= */
+#root {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    margin: 0;
+    padding: 0; /* el padding se gestiona en .app-shell */
+    text-align: initial; /* evitamos centrar todo el texto por defecto */
+}
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+
+    .logo:hover {
+        filter: drop-shadow(0 0 2em #646cffaa);
+    }
+
+    .logo.react:hover {
+        filter: drop-shadow(0 0 2em #61dafbaa);
+    }
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    a:nth-of-type(2) .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
+
+.card {
+    padding: 2em;
+}
+
+.read-the-docs {
+    color: #888;
+}
+
+/* clase .app original desactivada (no limitar ancho/alto) */
+.app {
+    min-height: 100%;
+}
+
+/* =========================
+   Variables + base
+   ========================= */
+:root {
+    --clr-bg: #EFEFEF;
+    --clr-surface: #ffffff;
+    --clr-border: #e6e6e6;
+    --clr-primary: #4b0c4b;
+    --page-pad: 16px;
+}
+
+/* ✅ ancho completo del sitio */
+html, body, #root {
+    height: 100%;
+    background: var(--clr-bg);
+    width: 100%; /* ← antes estaba en 85%, lo que encogía el header */
+    overflow-x: hidden; /* evita scroll horizontal accidental con 100vw en el header */
+}
+
+/* =========================
+   Layout principal
+   ========================= */
+.app-shell {
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 220px 1fr; /* aside + contenido */
+    gap: 16px;
+    /* si en algún momento usas header fixed en vez de sticky,
+     evita que el contenido quede debajo del header:
+     padding-top: 64px; */
+}
+
+/* Contenido principal (derecha) */
+.content {
+    min-height: calc(100vh - 64px - 32px);
+    padding: 8px;
+}
+
+/* =========================
+   Chat
+   ========================= */
+.chat-section {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 12px;
+    height: calc(100vh - 64px - 48px - 32px);
+}
+
+.chat-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: 12px;
+    padding: 8px;
+    overflow: hidden;
+    width: 45%;
+    height: 90%
+}
+
+.chat-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.placeholder {
+    background: var(--clr-surface);
+    border: 1px dashed var(--clr-border);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+/* =========================
+   Guard (pantallas de validación)
+   ========================= */
+.app--center {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+.guard-card {
+    width: min(520px, 92vw);
+    background: #EFEFEF;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 28px 24px;
+    box-shadow: 0 30px 80px #EFEFEF;
+    text-align: center;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.guard-card--error {
+    border-color: #f5c2c7;
+    background: #fdecea;
+}
+
+.guard-card--warn {
+    border-color: #ffe0a3;
+    background: #fff4e5;
+}
+
+.guard-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn {
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn--primary {
+    background: #5b2b7a;
+    color: #fff;
+}
+
+.btn--secondary {
+    background: #ddd;
+    color: #222;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 1200px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+    /* aside pasa a panel mobile */
+    .content {
+        padding: 4px 2px 12px;
+    }
+
+    .chat-section {
+        height: auto;
+        min-height: calc(100vh - 64px - 24px);
+    }
+}
+
+@media (min-width: 1600px) {
+    .app-shell {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}

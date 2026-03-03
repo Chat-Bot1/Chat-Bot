@@ -1,0 +1,86 @@
+:root {
+    --clr-header: #5b2b82; /* morado header */
+    --clr-bg: #ffffff;
+    --clr-text: #222;
+    --clr-accent: #440C6C; /* color botón */
+    --clr-accent-dark: #d89f00;
+}
+
+/* ===== Header a pantalla completa ===== */
+.header {
+    position: sticky; /* se mantiene visible al hacer scroll */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; /* por encima del contenido */
+    width: 100; /* fuerza a ocupar todo el ancho del viewport */
+    margin: 0; /* evita desplazamientos laterales */
+    height: 64px;
+    background: var(--clr-header);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+
+/* columna izquierda (logo + hamburger) */
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    height: 30px;
+    width: auto;
+}
+
+/* botón hamburger (solo mobile) */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    color: #fff;
+    font-size: 22px;
+    border: none;
+    padding: 6px 8px;
+    cursor: pointer;
+}
+
+/* columna derecha (Hola + botón salir) */
+.header__right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.welcome {
+    font-size: 12px;
+    opacity: 0.95;
+}
+
+.btn {
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn--logout {
+    background: var(--clr-accent);
+    color: #fff;
+    font-size: 12px;
+}
+
+    .btn--logout:hover {
+        background: var(--clr-accent-dark);
+    }
+
+/* mobile */
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: inline-block;
+    }
+}
