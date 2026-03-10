@@ -1,67 +1,76 @@
+/* Contenedor de los íconos de redes sociales */
 .social-links {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: auto;
-  }
-  
-  .social-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
+  display: flex; /* organiza los íconos en fila */
+  align-items: center;
+  gap: 10px; /* espacio entre íconos */
+  margin-left: auto; /* empuja los íconos hacia la derecha */
+}
+
+/* Enlaces que contienen cada ícono */
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* indica que es clickeable */
+}
+
+/* Estilo de los íconos */
+.social-links img {
+  width: 52px;   /* tamaño en desktop */
+  height: 52px;
+  object-fit: contain; /* mantiene proporción de la imagen */
+  opacity: 0.9;
+  transition: transform 0.15s ease, opacity 0.15s ease; /* animación suave */
+}
+
+/* Efecto hover sobre los íconos */
+.social-links a:hover img {
+  transform: scale(1.06); /* agranda ligeramente */
+  opacity: 1;
+}
+
+/* En el menú lateral los íconos se alinean a la izquierda */
+.sidenav .social-links {
+  margin-left: 0;
+  justify-content: flex-start;
+}
+
+/* Tamaño de íconos en pantallas medianas */
+@media (max-width: 768px) {
   .social-links img {
-    width: 52px;   /* tamaño original en PC */
-    height: 52px;
-    object-fit: contain;
-    opacity: 0.9;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-  }
-  
-  .social-links a:hover img {
-    transform: scale(1.06);
-    opacity: 1;
-  }
-  
-  /* En el menú izquierdo deben quedar pegados a la izquierda */
-  .sidenav .social-links {
-    margin-left: 0;
-    justify-content: flex-start;
-  }
-  
-  /* En responsive sí más grandes */
-  @media (max-width: 768px) {
-    .social-links img {
       width: 36px;
       height: 36px;
-    }
   }
-  
-  @media (max-width: 420px) {
-    .social-links img {
+}
+
+/* Tamaño en pantallas muy pequeñas */
+@media (max-width: 420px) {
+  .social-links img {
       width: 40px;
       height: 40px;
-    }
   }
+}
 
-  /* En el menú izquierdo deben quedar pegados a la izquierda */
+/* Ajuste adicional para íconos dentro del sidenav */
 .sidenav .social-links {
-    margin-left: 0;
-    justify-content: flex-start;
-  }
+  margin-left: 0;
+  justify-content: flex-start;
+}
 
-  @media (max-width: 800px) {
-    .sidenav .social-links a {
+/* Estilo especial para redes dentro del menú en mobile */
+@media (max-width: 800px) {
+
+  /* Fondo blanco para cada ícono */
+  .sidenav .social-links a {
       background: white;
       border-radius: 12px;
       padding: 8px;
-    }
-  
-    .sidenav .social-links img {
+  }
+
+  /* Íconos más pequeños dentro del sidenav */
+  .sidenav .social-links img {
       width: 30px;
       height: 30px;
       display: block;
-    }
   }
+}

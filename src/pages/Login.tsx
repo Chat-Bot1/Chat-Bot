@@ -1,6 +1,13 @@
+// Hooks de React
 import { useEffect, useMemo, useState, useRef } from "react";
+
+// Hook de MSAL para autenticación con Microsoft
 import { useMsal } from "@azure/msal-react";
+
+// Configuración de scopes para login
 import { loginRequest } from "../config/authConfig";
+
+// Funciones de sesión y validación
 import {
     setIdToken,
     acquireAccessToken,
@@ -8,70 +15,91 @@ import {
     saveSession,
     validateTokenDetailed,
 } from "../config/session";
+
+// Estilos de la vista login
 import "../styles/Login.css";
+
+// Logo de la aplicación
 import saviaLogo from "../assets/images/savia-logo_.png";
+
+// Hook para traducciones
 import { useTranslation } from "react-i18next";
 
-const AUTO_LOGOUT_MS = 3500; // tiempo para mostrar el mensaje antes de cerrar sesión (0 = deshabilitar)
+// Tiempo antes de cerrar sesión automáticamente si falla validación
+const AUTO_LOGOUT_MS = 3500;
 
 export default function Login() {
+    // Hook de traducción
     const { t, i18n } = useTranslation(["login"]);
+
+    // Instancia de MSAL
     const { instance } = useMsal();
 
+    // Agrega una clase especial al body mientras esta vista está montada
     useEffect(() => {
         document.body.classList.add("login-page");
         return () => document.body.classList.remove("login-page");
     }, []);
 
+    // Mensaje de error mostrado en pantalla
     const [errorMsg, setErrorMsg] = useState<string>("");
+
+    // Estado que indica si se está validando la sesión
     const [validating, setValidating] = useState<boolean>(false);
+
+    // Referencia para controlar el temporizador de auto logout
     const logoutTimer = useRef<number | null>(null);
 
+    // Limpia el temporizador al desmontar el componente
     useEffect(() => {
         return () => {
             if (logoutTimer.current) window.clearTimeout(logoutTimer.current);
         };
     }, []);
 
+    // Detecta el idioma actual
     const currentLang = useMemo(() => {
         const lng = i18n.resolvedLanguage || i18n.language || "es";
         return lng.split("-")[0];
     }, [i18n.language, i18n.resolvedLanguage]);
 
+    // Cambia idioma y lo guarda en localStorage
     const handleChangeLanguage = async (lng: "es" | "en") => {
         await i18n.changeLanguage(lng);
         localStorage.setItem("lang", lng);
         document.documentElement.lang = lng;
     };
 
+    // Maneja el flujo completo de login
     const handleLogin = async () => {
         try {
             setErrorMsg("");
             setValidating(false);
 
-            // 1) Login con Microsoft Entra ID
+            // 1) Inicia sesión con popup de Microsoft Entra ID
             const res = await instance.loginPopup(loginRequest);
 
-            // 2) Guardar sesión básica
+            // 2) Guarda sesión básica e ID token
             const idToken: string = (res as any)?.idToken || "";
             const username = res.account?.username || "usuario";
             saveSession("", username);
             setIdToken(idToken);
 
-            // 3) (Opcional) Access token
+            // 3) Intenta obtener access token si hay cuenta
             if (res.account) {
                 await acquireAccessToken(instance, res.account).catch(console.error);
             }
 
-            // 4) Validación externa (NO cierra aquí; devuelve {ok, reason})
+            // 4) Valida externamente el ID token
             setValidating(true);
             const result = await validateTokenDetailed(idToken);
             setValidating(false);
 
             if (!result.ok) {
-                // Mostrar mensaje y (opcional) auto‑logout después de un tiempo
+                // Muestra error si el token no es válido
                 setErrorMsg(result.reason || t("alertUnexpected"));
 
+                // Programa cierre automático de sesión
                 if (AUTO_LOGOUT_MS > 0) {
                     logoutTimer.current = window.setTimeout(async () => {
                         try { clearSession(); } catch { }
@@ -81,11 +109,12 @@ export default function Login() {
                 return;
             }
 
-            // 5) Token válido → entrar a la app
+            // 5) Si el token es válido, entra a la app
             window.location.replace("/");
         } catch (error: any) {
             setValidating(false);
 
+            // Ignora errores comunes si el usuario cierra el popup
             if (error?.errorCode === "user_cancelled" || error?.errorCode === "popup_window_error") {
                 return;
             }
@@ -95,6 +124,7 @@ export default function Login() {
         }
     };
 
+    // Cierra sesión manualmente de inmediato
     const handleLogoutNow = async () => {
         if (logoutTimer.current) {
             window.clearTimeout(logoutTimer.current);
@@ -112,18 +142,22 @@ export default function Login() {
                     <p>{t("tagline")}</p>
 
                     {validating ? (
+                        // Mensaje mientras se valida la sesión
                         <div className="login-alert" role="status" aria-live="polite">
                             <p>{t("validating") || "Validando sesión..."}</p>
                         </div>
                     ) : errorMsg ? (
+                        // Mensaje de error si falla el login o la validación
                         <div className="login-alert login-alert--error" role="alert" aria-live="polite">
                             <strong>{t("alertTransientTitle")}</strong>
                             <div style={{ marginTop: 6 }}>{errorMsg}</div>
+
                             <div className="login-alert__actions" style={{ marginTop: 10 }}>
                                 <button className="btn-logout" onClick={handleLogoutNow}>
                                     {t("logout") || "Cerrar sesión"}
                                 </button>
                             </div>
+
                             {AUTO_LOGOUT_MS > 0 && (
                                 <div style={{ marginTop: 8, fontSize: 12, opacity: .8 }}>
                                     Se cerrará la sesión automáticamente en {Math.round(AUTO_LOGOUT_MS / 1000)}s…
@@ -131,11 +165,13 @@ export default function Login() {
                             )}
                         </div>
                     ) : (
+                        // Botón principal para iniciar sesión
                         <button className="btn-login" onClick={handleLogin}>
                             {t("signIn")}
                         </button>
                     )}
 
+                    {/* Selector de idioma */}
                     <div className="lang-switch">
                         <label className="lang-switch__label">{t("languageLabel")}</label>
                         <select

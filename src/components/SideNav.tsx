@@ -1,76 +1,67 @@
+// Importa los estilos del menú lateral
 import "../styles/SideNav.css";
+
+// Hook para manejar traducciones
 import { useTranslation } from "react-i18next";
 
+// Componente que contiene los enlaces/redes sociales
 import SocialLinks from "./SocialLinks";
 
+// Tipos de vistas disponibles en el menú
 type ViewKey = "chat" | "config";
 
+// Props que recibe el SideNav
 interface SideNavProps {
-  activeKey: ViewKey;
-  isOpen: boolean;
-  onSelect: (key: ViewKey) => void;
-  onClose: () => void;
+  activeKey: ViewKey; // Vista actualmente activa
+  isOpen: boolean; // Indica si el menú está abierto
+  onSelect: (key: ViewKey) => void; // Función para cambiar de vista
+  onClose: () => void; // Función para cerrar el menú
 }
 
+// Componente del menú lateral
 export default function SideNav({ activeKey, isOpen, onSelect, onClose }: SideNavProps) {
+
+  // Hook para obtener textos traducidos
   const { t } = useTranslation(["chat"]);
 
-  // return (
-  //   <>
-  //     <div
-  //       className={`overlay ${isOpen ? "overlay--show" : ""}`}
-  //       onClick={onClose}
-  //       aria-hidden={!isOpen}
-  //     />
-
-  //     <aside className={`sidenav ${isOpen ? "sidenav--open" : ""}`}>
-  //       <nav className="sidenav__nav">
-  //         <button
-  //           className={`nav-btn ${activeKey === "chat" ? "nav-btn--active" : ""}`}
-  //           onClick={() => onSelect("chat")}
-  //         >
-  //           {t("sidenavChat")}
-  //         </button>
-
-  //         <button
-  //           className={`nav-btn ${activeKey === "config" ? "nav-btn--active" : ""}`}
-  //           onClick={() => onSelect("config")}
-  //         >
-  //           {t("sidenavConfig")}
-  //         </button>
-  //       </nav>
-  //     </aside>
-  //   </>
-  // );
   return (
     <>
+      {/* Fondo oscuro que aparece cuando el menú está abierto */}
       <div
         className={`overlay ${isOpen ? "overlay--show" : ""}`}
-        onClick={onClose}
+        onClick={onClose} // Cierra el menú al hacer click
         aria-hidden={!isOpen}
       />
-  
+
+      {/* Contenedor principal del menú lateral */}
       <aside className={`sidenav ${isOpen ? "sidenav--open" : ""}`}>
+
+        {/* Navegación del menú */}
         <nav className="sidenav__nav">
+
+          {/* Botón para ir a la vista de chat */}
           <button
             className={`nav-btn ${activeKey === "chat" ? "nav-btn--active" : ""}`}
             onClick={() => onSelect("chat")}
           >
             {t("sidenavChat")}
           </button>
-  
+
+          {/* Botón para ir a la vista de configuración */}
           <button
             className={`nav-btn ${activeKey === "config" ? "nav-btn--active" : ""}`}
             onClick={() => onSelect("config")}
           >
             {t("sidenavConfig")}
           </button>
+
         </nav>
-  
-        {/* Íconos abajo a la izquierda */}
+
+        {/* Sección inferior con enlaces o redes sociales */}
         <div className="sidenav__footer">
           <SocialLinks />
         </div>
+
       </aside>
     </>
   );

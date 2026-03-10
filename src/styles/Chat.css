@@ -1,50 +1,40 @@
-/* INPUT */
+/* =========================
+   INPUT DEL CHAT
+   ========================= */
+
+/* Contenedor del input y botón */
 .input-container {
-    display: flex;
-    gap: 10px;
-    /* width: 50% */
+    display: flex; /* Coloca input y botón en línea */
+    gap: 10px; /* Espacio entre elementos */
     width: 90%;
 }
 
-    .input-container input {
-        flex: 1;
-        padding: 12px;
-        border-radius: 20px;
-        border: 1px solid #ccc;
-    }
+/* Estilo del campo de texto */
+.input-container input {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
 
-    .input-container button {
-        padding: 0 20px;
-        border-radius: 20px;
-        border: none;
-        background-color: #F49A20;
-        color: white;
-        cursor: pointer;
-    }
+/* Estilo del botón de enviar */
+.input-container button {
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #F49A20;
+    color: white;
+    cursor: pointer;
+}
 
-/* ============================
+
+/* =========================
    CONTENEDOR PRINCIPAL DEL CHAT
-   ============================ */
-/* .chat-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch;
-    width: 100%;
-    flex: 1 1 auto;
-    box-sizing: border-box;
-
-    padding: 16px;
-    background-color: #fff !important;
-    height: 100%;
-    border: 1px solid #ddd;
-    border-radius: 16px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-} */
+   ========================= */
 
 .chat-container {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: column !important; /* Mensajes en columna */
     align-items: stretch;
     width: 100%;
     flex: 1 1 auto;
@@ -54,33 +44,27 @@
     height: 100%;
     border: 1px solid #ddd;
     border-radius: 16px;
-    overflow-y: auto;
+    overflow-y: auto; /* Permite scroll vertical */
     margin-bottom: 10px;
     gap: 4px;
 }
 
-/* (opcional) da un alto mínimo grande para que se vea “imponente” en pantallas altas */
+/* Altura mínima del chat en pantallas altas */
 @media (min-height: 700px) {
     .chat-container {
-        min-height: 60vh; /* ajusta a tu gusto (60–70vh suele verse bien) */
+        min-height: 60vh;
     }
 }
 
-/* ============================
+
+/* =========================
    MENSAJES
-   ============================ */
-/* .message {
-    display: inline-block;
-    max-width: 70%;
-    padding: 10px 14px;
-    border-radius: 14px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 1.4;
-} */
+   ========================= */
+
+/* Estilo base de cada mensaje */
 .message {
     display: inline-block;
-    max-width: 70%;
+    max-width: 70%; /* Limita ancho del mensaje */
     padding: 10px 14px;
     border-radius: 14px;
     margin-bottom: 10px;
@@ -88,88 +72,107 @@
     line-height: 1.4;
 }
 
-    /* BOT (IZQUIERDA) */
-    .message.bot {
-        align-self: flex-start !important;
-        background-color: #f2f2f2;
-        color: #000;
-        border-top-left-radius: 4px;
-    }
+/* Mensajes del BOT (lado izquierdo) */
+.message.bot {
+    align-self: flex-start !important;
+    background-color: #f2f2f2;
+    color: #000;
+    border-top-left-radius: 4px;
+}
 
-    /* USUARIO (DERECHA) */
-    .message.user {
-        align-self: flex-end !important;
-        background-color: #5B2B81;
-        color: #ffffff;
-        border-top-right-radius: 4px;
-    }
+/* Mensajes del USUARIO (lado derecho) */
+.message.user {
+    align-self: flex-end !important;
+    background-color: #5B2B81;
+    color: #ffffff;
+    border-top-right-radius: 4px;
+}
 
-
-/* ************************************************ */
-
+/* Contenedor del contenido del mensaje */
 .message-content {
     width: 100%;
-  }
+}
 
-  .typing-content {
+
+/* =========================
+   TEXTO EN MODO "TYPING"
+   ========================= */
+
+.typing-content {
     white-space: normal;
-    word-break: break-word;
+    word-break: break-word; /* Evita overflow de texto */
     line-height: 1.55;
-  }
+}
 
-  .typing-cursor {
+/* Cursor animado durante el tipeo */
+.typing-cursor {
     display: inline-block;
     margin-left: 2px;
     animation: blink 1s step-end infinite;
-  }
+}
 
-  @keyframes blink {
+/* Animación del cursor */
+@keyframes blink {
     50% {
-      opacity: 0;
+        opacity: 0;
     }
-  }
+}
 
-  .markdown-content {
+
+/* =========================
+   CONTENIDO MARKDOWN
+   ========================= */
+
+.markdown-content {
     white-space: normal;
     word-break: break-word;
     line-height: 1.55;
-  }
+}
 
-  .markdown-content p {
+/* Espaciado de párrafos */
+.markdown-content p {
     margin: 0 0 10px 0;
-  }
+}
 
-  .markdown-content p:last-child {
+.markdown-content p:last-child {
     margin-bottom: 0;
-  }
+}
 
-  .markdown-content ul,
-  .markdown-content ol {
+/* Listas */
+.markdown-content ul,
+.markdown-content ol {
     margin: 8px 0 8px 20px;
     padding-left: 18px;
-  }
+}
 
-  .markdown-content li {
+.markdown-content li {
     margin-bottom: 6px;
-  }
+}
 
-  .markdown-content strong {
+/* Texto en negrita */
+.markdown-content strong {
     font-weight: 700;
-  }
+}
 
-  /* **************************** */
 
-  .message.thinking {
+/* =========================
+   ANIMACIÓN "BOT PENSANDO"
+   ========================= */
+
+/* Animación del mensaje cuando el bot está pensando */
+.message.thinking {
     animation: pulseThinking 0.9s ease-in-out infinite;
     transform-origin: left center;
     will-change: transform, opacity;
 }
 
+/* Estilo visual del mensaje thinking */
 .message.bot.thinking {
     background-color: #ececec;
     font-style: italic;
 }
 
+/* Animación de pulso del contenedor */
 @keyframes pulseThinking {
     0% {
         opacity: 0.35;
@@ -185,11 +188,13 @@
     }
 }
 
+/* Animación del texto cuando el bot está pensando */
 .message.thinking .message-content,
 .message.thinking .typing-content {
     animation: pulseTextThinking 0.9s ease-in-out infinite;
 }
 
+/* Animación de pulso del texto */
 @keyframes pulseTextThinking {
     0% {
         opacity: 0.45;

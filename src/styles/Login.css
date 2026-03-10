@@ -2,29 +2,29 @@
    LOGIN A FULL SCREEN, CENTRADO
    ================================ */
 
-/* Capa de página: forzamos fullscreen y centrado absoluto */
+/* Capa principal del login ocupando toda la pantalla */
 .login-fullscreen {
-    position: fixed; /* ocupa toda la ventana, independiente del layout */
+    position: fixed; /* ocupa toda la ventana */
     inset: 0; /* top/right/bottom/left = 0 */
-    display: grid; /* centrado preciso */
-    place-items: center; /* centrado vertical y horizontal */
+    display: grid;
+    place-items: center; /* centra contenido vertical y horizontal */
     padding: 24px;
     box-sizing: border-box;
-    background: var(--clr-bg, #ffffff); /* usa tu bg global si existe */
-    z-index: 9999; /* por encima de cualquier grid o shell */
+    background: var(--clr-bg, #ffffff); /* fondo de la página */
+    z-index: 9999; /* se muestra por encima de otros layouts */
 }
 
-/* Contenedor semántico (por si quieres agregar más capas) */
+/* Contenedor general del login */
 .login-container {
     width: 100%;
     display: grid;
-    place-items: center;
+    place-items: center; /* centra la tarjeta */
 }
 
-/* Tarjeta de login */
+/* Tarjeta visual del login */
 .login-card {
-    position: relative; /* posiciona el selector dentro */
-    width: min(520px, 92vw);
+    position: relative; /* permite posicionar elementos internos */
+    width: min(520px, 92vw); /* tamaño máximo adaptable */
     background: #5B2B81;
     border: 1px solid #e6e6e6;
     border-radius: 12px;
@@ -34,12 +34,13 @@
     transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-    .login-card:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 14px 34px rgba(0,0,0,.14);
-    }
+/* Efecto hover de la tarjeta */
+.login-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 34px rgba(0,0,0,.14);
+}
 
-/* Botón estilo ámbar (consistente con la app) */
+/* Botón principal de login */
 .btn-login {
     border: none;
     background: #F49A20;
@@ -50,23 +51,28 @@
     cursor: pointer;
 }
 
-    .btn-login:hover {
-        background: #818282;
-    }
+/* Hover del botón login */
+.btn-login:hover {
+    background: #818282;
+}
 
-/* Logo y copy */
+/* Logo dentro de la tarjeta */
 .login-card .logo {
     height: 100px;
     padding: 0;
     margin-bottom: 12px;
 }
 
+/* Texto descriptivo debajo del logo */
 .login-card p {
     margin: 8px 0 16px;
     color: #CCCACA;
 }
 
-/* Alertas (error / transitorio) */
+/* ================================
+   ALERTAS (errores o avisos)
+   ================================ */
+
 .login-alert {
     margin-top: 12px;
     padding: 12px;
@@ -75,18 +81,21 @@
     border: 1px solid;
 }
 
+/* Alerta de error */
 .login-alert--error {
     background: #fdecea;
     color: #b3261e;
     border-color: #f5c2c7;
 }
 
+/* Alerta de advertencia */
 .login-alert--warn {
     background: #fff4e5;
     color: #8a6d3b;
     border-color: #ffe0a3;
 }
 
+/* Contenedor de botones dentro de alertas */
 .login-alert__actions {
     margin-top: 12px;
     display: flex;
@@ -94,25 +103,32 @@
     justify-content: center;
 }
 
-    .login-alert__actions button {
-        border: none;
-        border-radius: 20px;
-        padding: 8px 14px;
-        cursor: pointer;
-        font-weight: 600;
-    }
+/* Estilo base de botones dentro de alertas */
+.login-alert__actions button {
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 600;
+}
 
-    .login-alert__actions .btn-retry {
-        background: #5b2b7a;
-        color: #fff;
-    }
+/* Botón reintentar */
+.login-alert__actions .btn-retry {
+    background: #5b2b7a;
+    color: #fff;
+}
 
-    .login-alert__actions .btn-logout {
-        background: #ddd;
-        color: #222;
-    }
+/* Botón cerrar sesión */
+.login-alert__actions .btn-logout {
+    background: #ddd;
+    color: #222;
+}
 
-/* Accesibilidad: respeta reduce-motion */
+/* ================================
+   ACCESIBILIDAD
+   ================================ */
+
+/* Desactiva animaciones si el usuario lo prefiere */
 @media (prefers-reduced-motion: reduce) {
     .login-card,
     .login-card:hover {
@@ -122,7 +138,11 @@
     }
 }
 
-/* Selector de idioma (abajo derecha) */
+/* ================================
+   SELECTOR DE IDIOMA
+   ================================ */
+
+/* Contenedor del selector de idioma */
 .lang-switch {
     position: absolute;
     right: 16px;
@@ -130,18 +150,20 @@
     display: flex;
     align-items: center;
     gap: 8px;
-  }
-  
-  .lang-switch__label {
+}
+
+/* Texto del selector */
+.lang-switch__label {
     color: #CCCACA;
     font-size: 12px;
-  }
-  
-  .lang-switch__select {
+}
+
+/* Estilo del dropdown de idioma */
+.lang-switch__select {
     border-radius: 10px;
     border: 1px solid #cfcfcf;
     padding: 6px 10px;
     background: #ffffff;
     font-size: 12px;
     cursor: pointer;
-  }
+}

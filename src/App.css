@@ -1,13 +1,15 @@
 /* =========================
-   Reseteo inicial (tuyo)
+   Reseteo inicial
    ========================= */
-#root {
+
+   #root {
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     margin: 0;
-    padding: 0; /* el padding se gestiona en .app-shell */
-    text-align: initial; /* evitamos centrar todo el texto por defecto */
+    padding: 0; /* padding manejado por .app-shell */
+    text-align: initial; /* evita centrar texto globalmente */
 }
 
+/* Estilo del logo */
 .logo {
     height: 6em;
     padding: 1.5em;
@@ -15,110 +17,126 @@
     transition: filter 300ms;
 }
 
-    .logo:hover {
-        filter: drop-shadow(0 0 2em #646cffaa);
-    }
+/* Efecto hover del logo */
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
 
-    .logo.react:hover {
-        filter: drop-shadow(0 0 2em #61dafbaa);
-    }
+/* Efecto hover especial para logo React */
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
 
+/* Animación de rotación del logo */
 @keyframes logo-spin {
     from {
         transform: rotate(0)
     }
-
     to {
         transform: rotate(360deg)
     }
 }
 
+/* Aplica animación si el usuario no desactiva motion */
 @media (prefers-reduced-motion: no-preference) {
     a:nth-of-type(2) .logo {
         animation: logo-spin infinite 20s linear;
     }
 }
 
+/* Estilo genérico de tarjetas */
 .card {
     padding: 2em;
 }
 
+/* Texto informativo */
 .read-the-docs {
     color: #888;
 }
 
-/* clase .app original desactivada (no limitar ancho/alto) */
+/* Clase base de la app */
 .app {
     min-height: 100%;
 }
 
+
 /* =========================
    Variables + base
    ========================= */
+
 :root {
-    --clr-bg: #EFEFEF;
-    --clr-surface: #ffffff;
-    --clr-border: #e6e6e6;
-    --clr-primary: #4b0c4b;
-    --page-pad: 16px;
+    --clr-bg: #EFEFEF; /* fondo general */
+    --clr-surface: #ffffff; /* fondo de tarjetas */
+    --clr-border: #e6e6e6; /* bordes */
+    --clr-primary: #4b0c4b; /* color principal */
+    --page-pad: 16px; /* padding general */
 }
 
-/* ancho completo del sitio */
+/* Base del layout */
 html, body, #root {
     height: 100%;
     background: var(--clr-bg);
-    width: 100%; /* ← antes estaba en 85%, lo que encogía el header */
-    overflow-x: hidden; /* evita scroll horizontal accidental con 100vw en el header */
+    width: 100%;
+    overflow-x: hidden; /* evita scroll horizontal */
 }
+
 
 /* =========================
    Layout principal
    ========================= */
+
 .app-shell {
     width: 100%;
     margin: 0 auto;
     padding: 16px;
     display: grid;
-    grid-template-columns: 220px 1fr; /* aside + contenido */
+
+    /* layout de 2 columnas: menú + contenido */
+    grid-template-columns: 220px 1fr;
     gap: 16px;
-    /* si en algún momento usas header fixed en vez de sticky,
-     evita que el contenido quede debajo del header:
-     padding-top: 64px; */
 }
 
-/* Contenido principal (derecha) */
+/* Contenido principal (lado derecho) */
 .content {
     min-height: calc(100vh - 64px - 32px);
     padding: 8px;
 }
 
+
 /* =========================
-   Chat
+   Sección de chat
    ========================= */
+
 .chat-section {
     display: grid;
+
+    /* mensajes arriba + input abajo */
     grid-template-rows: 1fr auto;
     gap: 12px;
+
     height: calc(100vh - 64px - 48px - 32px);
 }
 
+/* Tarjeta contenedora del chat */
 .chat-card {
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
     border-radius: 12px;
     padding: 8px;
     overflow: hidden;
-    /* width: 45%; */
+
     width: 90%;
-    height: 90%
+    height: 90%;
 }
 
+/* Fila donde va el input del chat */
 .chat-input-row {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+/* Contenedor placeholder */
 .placeholder {
     background: var(--clr-surface);
     border: 1px dashed var(--clr-border);
@@ -126,15 +144,18 @@ html, body, #root {
     padding: 24px;
 }
 
+
 /* =========================
-   Guard (pantallas de validación)
+   Pantallas de validación (guard)
    ========================= */
+
 .app--center {
     display: grid;
-    place-items: center;
+    place-items: center; /* centra contenido */
     min-height: 100vh;
 }
 
+/* Tarjeta usada en validaciones o estados */
 .guard-card {
     width: min(520px, 92vw);
     background: #EFEFEF;
@@ -146,16 +167,19 @@ html, body, #root {
     transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
+/* Estado error */
 .guard-card--error {
     border-color: #f5c2c7;
     background: #fdecea;
 }
 
+/* Estado advertencia */
 .guard-card--warn {
     border-color: #ffe0a3;
     background: #fff4e5;
 }
 
+/* Botones dentro de la tarjeta */
 .guard-actions {
     margin-top: 12px;
     display: flex;
@@ -163,6 +187,7 @@ html, body, #root {
     justify-content: center;
 }
 
+/* Estilo base de botones */
 .btn {
     border: none;
     border-radius: 20px;
@@ -171,24 +196,30 @@ html, body, #root {
     font-weight: 600;
 }
 
+/* Botón principal */
 .btn--primary {
     background: #5b2b7a;
     color: #fff;
 }
 
+/* Botón secundario */
 .btn--secondary {
     background: #ddd;
     color: #222;
 }
 
+
 /* =========================
    Responsive
    ========================= */
+
+/* Layout en pantallas medianas */
 @media (max-width: 1200px) {
+
     .app-shell {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* elimina menú lateral fijo */
     }
-    /* aside pasa a panel mobile */
+
     .content {
         padding: 4px 2px 12px;
     }
@@ -199,9 +230,12 @@ html, body, #root {
     }
 }
 
+/* Ajustes para pantallas muy grandes */
 @media (min-width: 1600px) {
+
     .app-shell {
         padding-left: 24px;
         padding-right: 24px;
     }
+
 }

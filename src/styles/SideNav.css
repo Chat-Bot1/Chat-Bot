@@ -1,38 +1,43 @@
+/* Variables de estilos para el sidenav */
 :root {
-    --sidenav-w: 220px;
-    --clr-accent: #440C6C;
-    --clr-accents: #F49A20;
-    --clr-accent-dark: #d89f00;
+    --sidenav-w: 220px; /* ancho del menú lateral */
+    --clr-accent: #440C6C; /* color principal */
+    --clr-accents: #F49A20; /* color botones */
+    --clr-accent-dark: #d89f00; /* color hover */
 }
 
-/* Overlay solo mobile */
+/* Overlay oscuro que aparece en mobile cuando el menú está abierto */
 .overlay {
     position: fixed;
-    inset: 0;
+    inset: 0; /* ocupa toda la pantalla */
     background: rgba(0,0,0,.2);
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; /* oculto por defecto */
+    pointer-events: none; /* no interactivo cuando está oculto */
     transition: .2s ease;
     z-index: 8;
 }
 
+/* Muestra el overlay */
 .overlay--show {
     opacity: 1;
     pointer-events: all;
 }
 
+/* Contenedor principal del sidenav */
 .sidenav {
     width: var(--sidenav-w);
     padding: 16px;
     background: transparent;
 }
 
+/* Contenedor de navegación */
 .sidenav__nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* botones en columna */
     gap: 12px;
 }
 
+/* Botones de navegación */
 .nav-btn {
     width: 70%;
     text-align: center;
@@ -46,31 +51,41 @@
     transition: filter .15s ease;
 }
 
-    .nav-btn:hover {
-        filter: brightness(.95);
-    }
+/* Efecto hover del botón */
+.nav-btn:hover {
+    filter: brightness(.95);
+}
 
+/* Estilo del botón activo */
 .nav-btn--active {
     outline: 2px solid #fff;
 }
 
-/* MOBILE: sidenav deslizante */
+
+/* =========================
+   SIDENAV EN MOBILE
+   ========================= */
+
 @media (max-width: 800px) {
+
+    /* Panel lateral deslizante */
     .sidenav {
         position: fixed;
         top: 64px; /* debajo del header */
         left: 0;
         height: calc(100vh - 64px);
-        background: #5b2b82; /* morado más oscuro para panel */
-        transform: translateX(-105%);
+        background: #5b2b82; /* fondo del panel */
+        transform: translateX(-105%); /* oculto fuera de pantalla */
         transition: transform .2s ease;
         z-index: 9;
     }
 
+    /* Muestra el menú cuando está abierto */
     .sidenav--open {
         transform: translateX(0%);
     }
 
+    /* Botones dentro del menú en mobile */
     .sidenav__nav .nav-btn {
         background: var(--clr-accent);
         color: #ffff;
@@ -78,19 +93,24 @@
     }
 }
 
-/* Para que el sidenav tenga "top" y "bottom" */
+
+/* =========================
+   ESTRUCTURA VERTICAL
+   ========================= */
+
+/* Permite distribuir contenido arriba y abajo */
 .sidenav {
     display: flex;
     flex-direction: column;
-  
-    /* Esto hace que, en escritorio, el alto del menú sea similar al área del chat */
+
+    /* Ajusta altura para alinearse con el layout del chat */
     height: calc(100vh - 64px - 48px - 32px);
-  }
-  
-  /* Footer abajo */
-  .sidenav__footer {
-    margin-top: auto;          /* empuja el bloque hacia abajo */
+}
+
+/* Footer del menú (redes sociales) */
+.sidenav__footer {
+    margin-top: auto; /* empuja el contenido al fondo */
     padding-top: 12px;
     display: flex;
-    justify-content: flex-start; /* izquierda */
-  }
+    justify-content: flex-start; /* alineado a la izquierda */
+}
