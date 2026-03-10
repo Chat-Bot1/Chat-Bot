@@ -27,6 +27,7 @@ const API_URL = RAW_API_URL.replace(/\/$/, "");
 interface Message {
     from: "user" | "bot";
     text: string;
+    isThinking?: boolean;
 }
 type ViewKey = "chat" | "config";
 
@@ -105,14 +106,15 @@ function App() {
         setMessages((prev) => [
             ...prev,
             { from: "user", text: userMessage },
-            { from: "bot", text: t("typing") },
+            // { from: "bot", text: t("typing") },
+            { from: "bot", text: t("thinking"), isThinking: true },
         ]);
 
         const botResponse = await sendMessageToApi(userMessage);
 
         setMessages((prev) => {
             const updated = [...prev];
-            updated[updated.length - 1] = { from: "bot", text: botResponse };
+            updated[updated.length - 1] = { from: "bot", text: botResponse, isThinking: false };
             return updated;
         });
     };
