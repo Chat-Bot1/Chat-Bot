@@ -1,0 +1,239 @@
+
+/* Contenedor con imagen de fondo (importada en el componente) */
+.landing-root {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 24px;
+    color: #fff;
+    font-family: inherit;
+    overflow: visible; /* evitar recortes de elementos posicionados */
+}
+
+
+/* ============================
+   Header centrado en la parte superior del card
+   ============================ */
+.landing-header {
+    position: absolute;
+    top: 18px; /* ajustar según composición */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* espacio reducido entre logo y subtítulo */
+    align-items: center;
+    text-align: center;
+    z-index: 3;
+    width: calc(100% - 48px);
+    max-width: 820px;
+    pointer-events: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Logo: centrado y escalable, sin márgenes negativos */
+.logoSavia {
+    display: block;
+    width: 400px; /* tamaño por defecto para escritorio */
+    max-width: 60%;
+    height: auto;
+    margin: 0;
+    margin-bottom: -20px;
+    margin-top: 0;
+    transition: transform .12s ease;
+}
+
+/* Título opcional dentro del card (si se usa) */
+.landing-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #F49A20;
+    margin: 0;
+}
+
+/* Subtítulo más pegado al logo */
+.landing-subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 600; /* negrita moderada */
+    line-height: 1.05;
+    letter-spacing: 0.4px;
+    transform: translateY(0); /* ajuste fino si hace falta */
+    text-transform: uppercase;
+}
+
+/* ============================
+   Cuerpo (body) del contenido dentro del card
+   ============================ */
+.landing-body {
+    width: 400px;
+    max-width: 760px;
+    margin: 0 auto;
+    margin-left: 100px;
+    margin-top: 250px; /* deja espacio para el header absoluto */
+    color: rgba(255,255,255,0.92);
+    text-align: left;
+    padding: 0 8px;
+}
+
+    .landing-body p {
+        margin: 0 0 12px 0;
+        line-height: 1.4;
+    }
+
+.landing-list {
+    margin: 0 0 0 18px;
+}
+
+/* ============================
+   Footer / botones
+   ============================ */
+.landing-footer {
+    margin-top: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    /*justify-content: center;*/
+    gap: 2px;
+    z-index: 3;
+    position: relative;
+}
+
+/* Imagen usada como botón (opción A) */
+.landing-btnHabla {
+    display: inline-block;
+    width: 320px; /* ajustar según diseño */
+    max-width: 90%;
+    height: auto;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    border-radius: 12px;
+    background: transparent;
+    padding: 0;
+    z-index: 4;
+    justify-content: right;
+}
+
+    /* Hover / focus */
+    .landing-btnHabla:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    }
+
+    .landing-btnHabla:focus {
+        box-shadow: 0 0 0 4px rgba(11,95,255,0.18);
+        transform: translateY(-2px);
+    }
+
+
+
+/* ============================
+   Ajustes responsive
+   ============================ */
+@media (max-width: 920px) {
+    .logoSavia {
+        width: 220px;
+    }
+
+    .landing-body {
+        margin-top: 72px;
+        padding: 0 12px;
+    }
+
+    .landing-btnHabla, .landing-btnHablaBtn {
+        width: 300px;
+    }
+}
+
+@media (max-width: 720px) {
+    .landing-card {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .landing-header {
+        top: 14px;
+        width: calc(100% - 32px);
+        gap: 6px;
+    }
+
+    .logoSavia {
+        width: 180px;
+        max-width: 70%;
+    }
+
+    .landing-subtitle {
+        font-size: 12px;
+        line-height: 1.02;
+    }
+
+    .landing-body {
+        margin-top: 64px;
+    }
+
+    .landing-btnHabla, .landing-btnHablaBtn {
+        width: 240px;
+    }
+}
+
+@media (max-width: 320px) {
+    .landing-header {
+        top: 10px;
+        gap: 4px;
+    }
+
+    .logoSavia {
+        width: 140px;
+    }
+
+    .landing-subtitle {
+        font-size: 11px;
+    }
+
+    .landing-title {
+        font-size: 15px;
+        margin-left: 100px;
+    }
+
+    .landing-description {
+        font-size: 13px;
+    }
+
+    .landing-body {
+        margin-top: 56px;
+        padding: 0 10px;
+    }
+
+    .landing-btnHabla, .landing-btnHablaBtn {
+        width: 200px;
+    }
+}
+
+/* ============================
+   Utilidades y seguridad visual
+   ============================ */
+/* Asegura que overlay no bloquee interacciones */
+.landing-overlay {
+    pointer-events: none;
+}
+
+/* Evitar que imágenes de botón se seleccionen o arrastren */
+.landing-btnHabla, .landing-btnHablaBtn, .logoSavia {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* Evitar recortes inesperados en contenedores padres */
+.landing-root, .landing-card {
+    overflow: visible;
+}
