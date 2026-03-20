@@ -14,61 +14,93 @@ type ViewKey = "chat" | "config";
 
 // Props que recibe el SideNav
 interface SideNavProps {
-  activeKey: ViewKey; // Vista actualmente activa
-  isOpen: boolean; // Indica si el menú está abierto
-  onSelect: (key: ViewKey) => void; // Función para cambiar de vista
-  onClose: () => void; // Función para cerrar el menú
+    activeKey: ViewKey; // Vista actualmente activa
+    isOpen: boolean; // Indica si el menú está abierto
+    onSelect: (key: ViewKey) => void; // Función para cambiar de vista
+    onClose: () => void; // Función para cerrar el menú
+    onGoHome?: () => void; // Nueva prop: volver a Landing
 }
 
 // Componente del menú lateral
-export default function SideNav({ activeKey, isOpen, onSelect, onClose }: SideNavProps) {
+export default function SideNav({
+    activeKey,
+    isOpen,
+    onSelect,
+    onClose,
+    onGoHome,
+}: SideNavProps) {
+    // Hook para obtener textos traducidos
+    const { t } = useTranslation(["chat"]);
 
-  // Hook para obtener textos traducidos
-  const { t } = useTranslation(["chat"]);
+    // Handler para el botón Home: llama a onGoHome (si existe) y cierra el menú
+    const handleGoHome = () => {
+        try {
+            onGoHome && onGoHome();
+        } finally {
+            onClose();
+        }
+    };
 
-  return (
-    <>
-      {/* Fondo oscuro que aparece cuando el menú está abierto */}
-      <div
-        className={`overlay ${isOpen ? "overlay--show" : ""}`}
-        onClick={onClose} // Cierra el menú al hacer click
-        aria-hidden={!isOpen}
-      />
+    return (
+        <>
+            {/* Fondo oscuro que aparece cuando el menú está abierto */}
+            <div
+                className={`overlay ${isOpen ? "overlay--show" : ""}`}
+                onClick={onClose} // Cierra el menú al hacer click
+                aria-hidden={!isOpen}
+            />
 
-      {/* Contenedor principal del menú lateral */}
-      <aside className={`sidenav ${isOpen ? "sidenav--open" : ""}`}>
+            {/* Contenedor principal del menú lateral */}
+            <aside
+                className={`sidenav ${isOpen ? "sidenav--open" : ""}`}
+                aria-hidden={!isOpen}
+                aria-label={t("sidenavAria") || "Sidenav"}
+            >
+                {/* Navegación del menú */}
+                <nav className="sidenav__nav" role="navigation" aria-label={t("sidenavNav") || "Main navigation"}>
+                    {/* Botón Home */}
+                    <button
+                        className="nav-btn"
+                        onClick={handleGoHome}
+                        type="button"
+                    >
+                        {t("Home")}
+                    </button>
 
-        {/* Navegación del menú */}
-        <nav className="sidenav__nav">
+                    {/* Botón para ir a la vista de chat */}
+                    <button
+                        className={`nav-btn ${activeKey === "chat" ? "nav-btn--active" : ""}`}
+                        onClick={() => {
+                            onSelect("chat");
+                            onClose();
+                        }}
+                        type="button"
+                    >
+                        {t("sidenavChat")}
+                    </button>
 
-          {/* Botón para ir a la vista de chat */}
-          <button
-            className={`nav-btn ${activeKey === "chat" ? "nav-btn--active" : ""}`}
-            onClick={() => onSelect("chat")}
-          >
-            {t("sidenavChat")}
-          </button>
+                    {/* Botón para ir a la vista de configuración */}
+                    <button
+                        className={`nav-btn ${activeKey === "config" ? "nav-btn--active" : ""}`}
+                        onClick={() => {
+                            onSelect("config");
+                            onClose();
+                        }}
+                        type="button"
+                    >
+                        {t("sidenavConfig")}
+                    </button>
+                </nav>
 
-          {/* Botón para ir a la vista de configuración */}
-          <button
-            className={`nav-btn ${activeKey === "config" ? "nav-btn--active" : ""}`}
-            onClick={() => onSelect("config")}
-          >
-            {t("sidenavConfig")}
-          </button>
+                {/* Sección inferior con enlaces o redes sociales */}
+                <div className="sidenav__footer">
+                    <div className="sidenav__brand">
+                        <img src={saviaLogo} alt="SAV-IA" className="sidenav__brand-logo" />
+                    </div>
 
-        </nav>
-
-        {/* Sección inferior con enlaces o redes sociales */}
-        <div className="sidenav__footer">
-          <div className="sidenav__brand">
-            <img src={saviaLogo} alt="SAV-IA" className="sidenav__brand-logo" />
-          </div>
-          
-          <SocialLinks />
-        </div>
-
-      </aside>
-    </>
-  );
+                    <SocialLinks />
+                </div>
+            </aside>
+        </>
+    );
 }

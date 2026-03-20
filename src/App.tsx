@@ -132,6 +132,30 @@ function App() {
         setActiveView("chat");
     };
 
+    // Nueva función: volver a la Landing desde la app
+    const goToLanding = () => {
+        try {
+            localStorage.removeItem("landingSeen");
+        } catch {
+            // ignore
+        }
+
+        // Cierra el side nav si está abierto
+        setSideOpen(false);
+
+        // Limpia estado de la app para mostrar la Landing limpia
+        setMessages([]);
+        setInput("");
+        setLoading(false);
+        messageIdRef.current = 0;
+
+        // Actualiza el flag para que el render muestre Landing
+        setLandingSeen(false);
+
+        // Asegura que la vista interna quede en chat cuando vuelva a entrar
+        setActiveView("chat");
+    };
+
     // Envía el mensaje al backend usando un token fresco
     const sendMessageToApi = async (text: string) => {
         try {
@@ -281,6 +305,7 @@ function App() {
                         setSideOpen(false);
                     }}
                     onClose={() => setSideOpen(false)}
+                    onGoHome={goToLanding} // <-- prop añadida para que SideNav pueda volver a Landing
                 />
 
                 <main className="content">
@@ -292,12 +317,7 @@ function App() {
                             </div>
 
                             {/* Input para escribir y enviar mensajes */}
-                            <ChatInput
-                                value={input}
-                                onChange={setInput}
-                                onSend={handleSend}
-                                disabled={loading}
-                            />
+                            <ChatInput value={input} onChange={setInput} onSend={handleSend} disabled={loading} />
                         </section>
                     ) : (
                         <section className="config-section">
