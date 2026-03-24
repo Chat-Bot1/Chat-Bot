@@ -4,6 +4,9 @@
     --clr-accent: #440C6C; /* color principal */
     --clr-accents: #F49A20; /* color botones */
     --clr-accent-dark: #d89f00; /* color hover */
+
+    --clr-sidebar-btn: #F49A20;
+    --clr-sidebar-text: #ffffff;
 }
 
 /* Overlay oscuro que aparece en mobile cuando el menú está abierto */
@@ -60,8 +63,10 @@
 .nav-btn {
     width: 70%;
     text-align: center;
-    background: var(--clr-accents);
-    color: #fff;
+    /* background: var(--clr-accents); */
+    /* color: #fff; */
+    background: var(--clr-sidebar-btn);
+    color: var(--clr-sidebar-text);
     font-weight: 700;
     border: none;
     border-radius: 8px;
@@ -81,9 +86,7 @@
 }
 
 
-/* =========================
-   SIDENAV EN MOBILE
-   ========================= */
+/* SIDENAV EN MOBILE */
 
 @media (max-width: 800px) {
 
@@ -106,16 +109,16 @@
 
     /* Botones dentro del menú en mobile */
     .sidenav__nav .nav-btn {
-        background: var(--clr-accent);
-        color: #ffff;
+        /* background: var(--clr-accent); */
+        /* color: #ffff; */
+        background: var(--clr-sidebar-btn);
+        color: var(--clr-sidebar-text);
         font-weight: 700;
     }
 }
 
 
-/* =========================
-   ESTRUCTURA VERTICAL
-   ========================= */
+/* ESTRUCTURA VERTICAL */
 
 /* Permite distribuir contenido arriba y abajo */
 .sidenav {

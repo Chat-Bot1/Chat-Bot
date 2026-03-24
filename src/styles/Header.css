@@ -1,45 +1,49 @@
-/* Variables globales de colores */
-:root {
-    --clr-header: #5b2b82; /* color morado del header */
-    --clr-bg: #ffffff; /* color de fondo general */
-    --clr-text: #222; /* color de texto */
-    --clr-accent: #440C6C; /* color principal de botones */
-    --clr-accent-dark: #d89f00; /* color de hover en botones */
+/* VARIABLES GLOBALES */
+   :root {
+    --clr-header: #5b2b82; /* color del header */
+    --clr-bg: #ffffff;     /* fondo general */
+    --clr-text: #222;      /* texto base */
+    --clr-accent: #440C6C; /* color base botones (antiguo logout) */
+    --clr-accent-dark: #d89f00; /* hover antiguo */
 }
 
-/* ===== Header a pantalla completa ===== */
+
+/* HEADER */
 
 .header {
-    position: sticky; /* permanece visible al hacer scroll */
+    position: sticky; /* fijo al hacer scroll */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100; /* se mantiene por encima del contenido */
-    width: 100; /* ocupa todo el ancho */
+    z-index: 100; /* encima del resto */
+    width: 100; /* debería ser 100% */
     margin: 0;
     height: 64px;
-    background: var(--clr-header); /* color del header */
+    background: var(--clr-header); /* color dinámico */
     color: #fff;
     display: flex;
-    justify-content: space-between; /* separa izquierda y derecha */
+    justify-content: space-between; /* separa lados */
     align-items: center;
     padding: 0 16px;
 }
 
-/* Contenedor izquierdo (botón menú + logo) */
+
+/* LADO IZQUIERDO */
+
 .header__left {
     display: flex;
     align-items: center;
-    gap: 12px; /* espacio entre elementos */
+    gap: 12px; /* espacio entre botón y logo */
 }
 
-/* Estilo del logo */
 .logo {
     height: 30px;
     width: auto;
 }
 
-/* Botón hamburguesa (visible en mobile) */
+
+/* BOTÓN MENÚ (HAMBURGUESA)*/
+
 .menu-toggle {
     display: none; /* oculto en desktop */
     background: transparent;
@@ -50,21 +54,24 @@
     cursor: pointer;
 }
 
-/* Contenedor derecho (saludo + botón logout) */
+
+/* LADO DERECHO */
+
 .header__right {
-    margin-left: auto;
+    margin-left: auto; /* empuja a la derecha */
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-/* Texto de bienvenida */
 .welcome {
     font-size: 12px;
-    opacity: 0.95;
+    opacity: 0.95; /* leve transparencia */
 }
 
-/* Estilo base de botones */
+
+/* BOTONES GENERALES */
+
 .btn {
     border: none;
     border-radius: 20px;
@@ -73,24 +80,48 @@
     font-weight: 600;
 }
 
-/* Botón de cerrar sesión */
+
+/* BOTÓN LOGOUT (ANTIGUO) */
+
 .btn--logout {
-    background: var(--clr-accent);
+    background: var(--clr-accent); /* color antiguo */
     color: #fff;
     font-size: 12px;
 }
 
-/* Color al pasar el mouse */
 .btn--logout:hover {
-    background: var(--clr-accent-dark);
+    background: var(--clr-accent-dark); /* hover antiguo */
 }
 
-/* ===== Estilos para pantallas pequeñas ===== */
+
+/* RESPONSIVE */
+
 @media (max-width: 992px) {
-
-    /* Muestra el botón hamburguesa en mobile */
     .menu-toggle {
-        display: inline-block;
+        display: inline-block; /* visible en mobile */
     }
+}
 
+
+/* NUEVO SISTEMA DINÁMICO (CONFIGURACIÓN) */
+:root {
+    --clr-logout-btn: #4B0F6B;   /* fondo dinámico botón */
+    --clr-logout-text: #ffffff;  /* texto dinámico */
+}
+
+/* Sobrescribe estilos anteriores del botón */
+.btn--logout {
+    background-color: var(--clr-logout-btn); /* color configurable */
+    color: var(--clr-logout-text) !important; /* fuerza prioridad */
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    transition: all 0.3s ease;
+}
+
+/* Hover moderno */
+.btn--logout:hover {
+    color: var(--clr-logout-text) !important;
+    opacity: 0.9;
+    transform: translateY(-1px); /* efecto elevación */
 }

@@ -1,89 +1,79 @@
-/* =========================
-   Reseteo inicial
-   ========================= */
+/* RESETEO INICIAL */
 
    #root {
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; /* fuente base */
     margin: 0;
-    padding: 0; /* padding manejado por .app-shell */
-    text-align: initial; /* evita centrar texto globalmente */
+    padding: 0; /* el layout maneja el espaciado */
+    text-align: initial; /* evita centrado global */
 }
 
-/* Estilo del logo */
+
+/* LOGO Y ANIMACIONES */
+
 .logo {
     height: 6em;
     padding: 1.5em;
-    will-change: filter;
+    will-change: filter; /* optimiza animaciones */
     transition: filter 300ms;
 }
 
-/* Efecto hover del logo */
 .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #646cffaa); /* efecto glow */
 }
 
-/* Efecto hover especial para logo React */
 .logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+    filter: drop-shadow(0 0 2em #61dafbaa); /* glow React */
 }
 
-/* Animación de rotación del logo */
+/* Animación de rotación */
 @keyframes logo-spin {
-    from {
-        transform: rotate(0)
-    }
-    to {
-        transform: rotate(360deg)
-    }
+    from { transform: rotate(0) }
+    to { transform: rotate(360deg) }
 }
 
-/* Aplica animación si el usuario no desactiva motion */
+/* Solo si el usuario permite animaciones */
 @media (prefers-reduced-motion: no-preference) {
     a:nth-of-type(2) .logo {
         animation: logo-spin infinite 20s linear;
     }
 }
 
-/* Estilo genérico de tarjetas */
+
+/* ELEMENTOS GENERALES */
+
 .card {
-    padding: 2em;
+    padding: 2em; /* contenedor tipo tarjeta */
 }
 
-/* Texto informativo */
 .read-the-docs {
-    color: #888;
+    color: #888; /* texto secundario */
 }
 
-/* Clase base de la app */
 .app {
-    min-height: 100%;
+    min-height: 100%; /* ocupa toda la altura */
 }
 
 
-/* =========================
-   Variables + base
-   ========================= */
+/* VARIABLES GLOBALES*/
 
 :root {
-    --clr-bg: #EFEFEF; /* fondo general */
-    --clr-surface: #ffffff; /* fondo de tarjetas */
-    --clr-border: #e6e6e6; /* bordes */
-    --clr-primary: #4b0c4b; /* color principal */
-    --page-pad: 16px; /* padding general */
+    --clr-bg: #EFEFEF;       /* fondo general */
+    --clr-surface: #ffffff;  /* tarjetas */
+    --clr-border: #e6e6e6;   /* bordes */
+    --clr-primary: #4b0c4b;  /* color principal */
+    --page-pad: 16px;        /* padding base */
 }
 
-/* Base del layout */
+/* Base global */
 html, body, #root {
     height: 100%;
     background: var(--clr-bg);
     width: 100%;
-    overflow-x: hidden; /* evita scroll horizontal */
+    overflow-x: hidden; /* evita scroll lateral */
 }
 
 
-/* =========================
-   Layout principal
-   ========================= */
+/* LAYOUT PRINCIPAL */
 
 .app-shell {
     width: 100%;
@@ -91,33 +81,26 @@ html, body, #root {
     padding: 16px;
     display: grid;
 
-    /* layout de 2 columnas: menú + contenido */
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px 1fr; /* sidebar + contenido */
     gap: 16px;
 }
 
-/* Contenido principal (lado derecho) */
 .content {
-    min-height: calc(100vh - 64px - 32px);
+    min-height: calc(100vh - 64px - 32px); /* altura disponible */
     padding: 8px;
 }
 
 
-/* =========================
-   Sección de chat
-   ========================= */
+/* SECCIÓN CHAT */
 
 .chat-section {
     display: grid;
-
-    /* mensajes arriba + input abajo */
-    grid-template-rows: 1fr auto;
+    grid-template-rows: 1fr auto; /* mensajes + input */
     gap: 12px;
 
     height: calc(100vh - 64px - 48px - 32px);
 }
 
-/* Tarjeta contenedora del chat */
 .chat-card {
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
@@ -129,14 +112,13 @@ html, body, #root {
     height: 90%;
 }
 
-/* Fila donde va el input del chat */
 .chat-input-row {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* Contenedor placeholder */
+/* Placeholder visual */
 .placeholder {
     background: var(--clr-surface);
     border: 1px dashed var(--clr-border);
@@ -145,9 +127,7 @@ html, body, #root {
 }
 
 
-/* =========================
-   Pantallas de validación (guard)
-   ========================= */
+/* PANTALLAS DE VALIDACIÓN */
 
 .app--center {
     display: grid;
@@ -155,7 +135,6 @@ html, body, #root {
     min-height: 100vh;
 }
 
-/* Tarjeta usada en validaciones o estados */
 .guard-card {
     width: min(520px, 92vw);
     background: #EFEFEF;
@@ -164,22 +143,20 @@ html, body, #root {
     padding: 28px 24px;
     box-shadow: 0 30px 80px #EFEFEF;
     text-align: center;
-    transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-/* Estado error */
+/* Estados visuales */
 .guard-card--error {
     border-color: #f5c2c7;
     background: #fdecea;
 }
 
-/* Estado advertencia */
 .guard-card--warn {
     border-color: #ffe0a3;
     background: #fff4e5;
 }
 
-/* Botones dentro de la tarjeta */
+/* Acciones (botones) */
 .guard-actions {
     margin-top: 12px;
     display: flex;
@@ -187,7 +164,9 @@ html, body, #root {
     justify-content: center;
 }
 
-/* Estilo base de botones */
+
+/* BOTONES */
+
 .btn {
     border: none;
     border-radius: 20px;
@@ -196,28 +175,23 @@ html, body, #root {
     font-weight: 600;
 }
 
-/* Botón principal */
 .btn--primary {
     background: #5b2b7a;
     color: #fff;
 }
 
-/* Botón secundario */
 .btn--secondary {
     background: #ddd;
     color: #222;
 }
 
 
-/* =========================
-   Responsive
-   ========================= */
+/* RESPONSIVE GENERAL */
 
-/* Layout en pantallas medianas */
 @media (max-width: 1200px) {
 
     .app-shell {
-        grid-template-columns: 1fr; /* elimina menú lateral fijo */
+        grid-template-columns: 1fr; /* elimina sidebar fijo */
     }
 
     .content {
@@ -230,12 +204,135 @@ html, body, #root {
     }
 }
 
-/* Ajustes para pantallas muy grandes */
 @media (min-width: 1600px) {
 
     .app-shell {
         padding-left: 24px;
         padding-right: 24px;
     }
+}
 
+
+/* CONFIGURACIÓN (UI SETTINGS) */
+
+.config-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px 28px;
+    max-width: 980px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* título principal */
+.config-card h2 {
+    margin: 0 0 24px;
+    font-size: 2rem;
+    color: #1f3b63;
+}
+
+/* subtítulos */
+.config-upload-block h3,
+.config-column h3 {
+    margin: 0 0 14px;
+    font-size: 1.2rem;
+    color: #2c2b55;
+}
+
+/* separador */
+.config-divider {
+    height: 1px;
+    background: #e7e5ef;
+    margin: 18px 0 22px;
+}
+
+/* layout en columnas */
+.config-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+}
+
+/* columnas */
+.config-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* separación visual entre columnas */
+.config-column:first-child {
+    border-right: 1px solid #e7e5ef;
+    padding-right: 28px;
+}
+
+.config-column:last-child {
+    padding-left: 8px;
+}
+
+/* fila label + input */
+.config-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.config-row label {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #2f3153;
+}
+
+/* input file */
+.config-group input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d8d6e2;
+    border-radius: 10px;
+    background: #faf9fc;
+}
+
+/* input color */
+.config-row input[type="color"] {
+    width: 56px;
+    height: 28px;
+    border: 1px solid #cfcbdc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* mejora visual del color picker */
+.config-row input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 5px;
+}
+
+
+/* RESPONSIVE CONFIG */
+
+@media (max-width: 900px) {
+
+    .config-columns {
+        grid-template-columns: 1fr; /* una sola columna */
+    }
+
+    .config-column:first-child {
+        border-right: none;
+        border-bottom: 1px solid #e7e5ef;
+        padding-bottom: 20px;
+    }
+
+    .config-column:last-child {
+        padding-left: 0;
+    }
+
+    .config-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .config-row input[type="color"] {
+        width: 90px;
+        height: 36px;
+    }
 }

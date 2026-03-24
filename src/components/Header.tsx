@@ -1,78 +1,92 @@
-// Importa los estilos del header
+// Estilos del header
 import "../styles/Header.css";
 
-// Importa el logo de la aplicación
-//import saviaLogo from "../assets/images/savia-logo_.png";
+// Logo por defecto
+import defaultLogo from "../assets/images/logo-savios.png";
 
-import logoSavios from "../assets/images/logo-savios.png";
-
-// Funciones para obtener datos del usuario guardados en sesión
+// Funciones para obtener datos de sesión
 import { getName, getUniqueName } from "../config/session";
 
-// Hook para manejar traducciones
+// Hook de traducciones
 import { useTranslation } from "react-i18next";
 
+// Hooks de React
+import { useEffect, useState } from "react";
 
-// Props que recibe el componente Header
+// Props del componente Header
 interface HeaderProps {
-  username: string; // Usuario autenticado
-  displayName?: string; // Nombre para mostrar (opcional)
-  onLogout: () => void; // Función para cerrar sesión
-  onToggleMenu?: () => void; // Función para abrir/cerrar menú lateral
+  username: string;          // Usuario base
+  displayName?: string;      // Nombre visible opcional
+  onLogout: () => void;      // Función cerrar sesión
+  onToggleMenu?: () => void; // Abrir/cerrar menú lateral
 }
 
-// Componente del encabezado de la aplicación
-export default function Header({ username, displayName, onLogout, onToggleMenu }: HeaderProps) {
+// Componente principal
+export default function Header({
+  username,
+  displayName,
+  onLogout,
+  onToggleMenu,
+}: HeaderProps) {
 
-  // Hook de traducciones usando los namespaces "common" y "chat"
+  // Hook de traducción (namespaces: common y chat)
   const { t } = useTranslation(["common", "chat"]);
 
-  // Obtiene nombre guardado en sesión
+  // Obtener datos de sesión almacenados
   const storedName = getName();
-
-  // Obtiene nombre único
   const storedUnique = getUniqueName();
 
-  // Determina el nombre que se mostrará en el header
+  // Prioridad del nombre a mostrar
   const nameToShow = displayName || storedName || storedUnique || username;
 
+  // Estado del logo (localStorage o por defecto)
+  const [logo, setLogo] = useState<string>(
+    localStorage.getItem("app_logo") || defaultLogo
+  );
+
+  // Escucha cambios del logo en tiempo real
+  useEffect(() => {
+    const handleLogoUpdate = () => {
+      setLogo(localStorage.getItem("app_logo") || defaultLogo);
+    };
+
+    // Evento personalizado para actualizar logo
+    window.addEventListener("logoUpdated", handleLogoUpdate);
+
+    // Limpieza al desmontar
+    return () => {
+      window.removeEventListener("logoUpdated", handleLogoUpdate);
+    };
+  }, []);
+
   return (
-    // Contenedor principal del header
     <header className="header">
 
-      {/* Sección izquierda: menú y logo */}
+      {/* Lado izquierdo: menú + logo */}
       <div className="header__left">
-
-        {/* Botón para abrir/cerrar menú lateral */}
         <button
           className="menu-toggle"
-          aria-label={t("openMenu", { ns: "common" })}
-          onClick={onToggleMenu}
+          aria-label={t("openMenu", { ns: "common" })} // accesibilidad
+          onClick={onToggleMenu} // abre/cierra sidenav
         >
           ☰
         </button>
 
-        {/* Logo de la aplicación */}
-        {/* <img src={saviaLogo} alt="SAV-IA" className="logo" /> */}
-        <img src={logoSavios} alt="SAVIOS" className="logo" />
-
+        {/* Logo dinámico */}
+        <img src={logo} alt="SAVIOS" className="logo" />
       </div>
 
-      {/* Sección derecha: saludo y logout */}
+      {/* Lado derecho: usuario + logout */}
       <div className="header__right">
-
-        {/* Mensaje de bienvenida con el nombre del usuario */}
         <span className="welcome">
           {t("hello", { ns: "common" })}: <strong>{nameToShow}</strong>
         </span>
 
-        {/* Botón para cerrar sesión */}
+        {/* Botón cerrar sesión */}
         <button className="btn btn--logout" onClick={onLogout}>
           {t("logout", { ns: "chat" })}
         </button>
-
       </div>
-
     </header>
   );
 }
