@@ -79,8 +79,10 @@
 /* Mensajes del USUARIO (lado derecho) */
 .message.user {
     align-self: flex-end !important;
-    background-color: #5B2B81;
-    color: #ffffff;
+    /* background-color: #5B2B81; */
+    /* color: #ffffff; */
+    background-color: var(--clr-logout-btn);
+    color: var(--clr-logout-text);
     border-top-right-radius: 4px;
 }
 

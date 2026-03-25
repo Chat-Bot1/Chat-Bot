@@ -387,7 +387,7 @@ function App() {
                 <div className="config-columns">
                   {/* Columna header */}
                   <div className="config-column">
-                    <h3>Header</h3>
+                    <h3>Header y Chat</h3>
 
                     <div className="config-row">
                       <label htmlFor="primaryColor">Color principal del header</label>
@@ -409,7 +409,7 @@ function App() {
                     </div>
 
                     <div className="config-row">
-                      <label htmlFor="logoutColor">Color botón cerrar sesión</label>
+                      <label htmlFor="logoutColor">Color del botón cerrar sesión y burbuja del chat usuario</label>
                       <input
                         id="logoutColor"
                         type="color"
@@ -429,7 +429,7 @@ function App() {
 
                     <div className="config-row">
                       <label htmlFor="logoutTextColor">
-                        Color texto botón cerrar sesión
+                        Color del texto botón cerrar sesión y texto burbuja del chat usuario
                       </label>
                       <input
                         id="logoutTextColor"
@@ -454,7 +454,7 @@ function App() {
                     <h3>Menú</h3>
 
                     <div className="config-row">
-                      <label htmlFor="sidebarBtnColor">Color botones menú</label>
+                      <label htmlFor="sidebarBtnColor">Color botones menú y botón enviar</label>
                       <input
                         id="sidebarBtnColor"
                         type="color"
@@ -474,7 +474,7 @@ function App() {
 
                     <div className="config-row">
                       <label htmlFor="sidebarTextColor">
-                        Color texto botones menú
+                        Color texto botones menú y texto botón enviar
                       </label>
                       <input
                         id="sidebarTextColor"

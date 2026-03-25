@@ -75,9 +75,7 @@
     color: #CCCACA;
 }
 
-/* ================================
-   ALERTAS (errores o avisos)
-   ================================ */
+/* ALERTAS (errores o avisos */
 
 .login-alert {
     margin-top: 12px;
@@ -130,9 +128,7 @@
     color: #222;
 }
 
-/* ================================
-   ACCESIBILIDAD
-   ================================ */
+/* ACCESIBILIDAD */
 
 /* Desactiva animaciones si el usuario lo prefiere */
 @media (prefers-reduced-motion: reduce) {
@@ -144,9 +140,7 @@
     }
 }
 
-/* ================================
-   SELECTOR DE IDIOMA
-   ================================ */
+/* SELECTOR DE IDIOMA */
 
 /* Contenedor del selector de idioma */
 .lang-switch {

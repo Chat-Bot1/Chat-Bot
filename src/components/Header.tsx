@@ -75,7 +75,7 @@ export default function Header({
         {/* Logo dinámico 
         <img src={logo} alt="SAVIOS" className="logo" />*/}
         <div className="logo-container">
-          <img src={logo} alt="SAVIOS" className="logo" />
+          <img src={logo} alt="SAVIOS" className="header-logo" />
         </div>
       </div>
 
